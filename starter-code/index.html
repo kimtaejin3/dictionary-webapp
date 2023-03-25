@@ -1,14 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Dictionary web app</title>
-</head>
-<body>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./js/interact.js" defer></script>
+    <script src="./js/ajax.js" defer></script>
+    <script src="./js/response_dom.js" defer></script>
+    <title>Frontend Mentor | Dictionary web app</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="l_wrapper">
+        <div class="headings">
+          <h1 class="header-title">
+            <a href="#"
+              ><img src="./assets/images/logo.svg" /><span
+                >Dictionary search web app</span
+              ></a
+            >
+          </h1>
+          <div class="toggles">
+            <div class="select">
+              <div class="selected">
+                <div class="selected-value">Sans Serif</div>
+                <div class="arrow">
+                  <img src="assets/images/icon-arrow-down.svg" alt="" />
+                </div>
+              </div>
 
-</body>
+              <ul class="off">
+                <li class="option">Sans Serif</li>
+                <li class="option">Serif</li>
+                <li class="option">Mono</li>
+              </ul>
+            </div>
+
+            <label class="switch">
+              <input class="switch-checkbox" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+            <img src="./assets/images/icon-moon.svg" alt="moon-toggle" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="contents">
+      <div class="l_wrapper">
+        <div class="search">
+          <input type="text" />
+          <img
+            class="search-icon"
+            src="assets/images/icon-search.svg"
+            alt="icon-search"
+          />
+        </div>
+
+        <section class="searchedArea">
+          1. 코드잇으로 서버와 데이터 주고 받는법 빨리 익히기
+          <br />2. validation form <br />3. validation form인데 이메일처럼
+          복잡하지 않음
+        </section>
+      </div>
+    </main>
+  </body>
 </html>
