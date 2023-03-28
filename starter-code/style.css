@@ -108,6 +108,10 @@ li {
   left: 28px;
 }
 
+.switch-checkbox:checked + .slider {
+  background-color: var(--purple);
+}
+
 .toggles {
   display: flex;
   gap: 20px;
@@ -214,6 +218,9 @@ body {
   text-indent: -9999px;
 }
 
+.audio_btn {
+}
+
 .searchedArea {
   margin-top: 50px;
   font-size: 1.6rem;
@@ -304,11 +311,17 @@ body {
   margin-bottom: 20px;
 }
 
+.synonyms-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .synonyms-item {
   color: var(--gray);
   font-weight: bold;
   border: 1px solid rgb(208, 208, 208);
-
+  display: block;
   padding: 5px;
   border-radius: 10px;
 }
@@ -325,11 +338,18 @@ body {
   margin-bottom: 20px;
 }
 
+.antonyms-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .antonyms-item {
   color: var(--gray);
   font-weight: bold;
   border: 1px solid rgb(208, 208, 208);
   padding: 5px;
+  display: block;
   border-radius: 10px;
 }
 
