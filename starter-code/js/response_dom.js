@@ -3,7 +3,11 @@ const search_icon = document.querySelector(".search-icon");
 const search_text = document.querySelector(".search-text");
 const searchedArea = document.querySelector(".searchedArea");
 const searchedArea_title = document.querySelector(".searchedArea-header h2");
-const ponetics = document.querySelector(".searchedArea-header span");
+const ponetics = document.querySelector(".word .ponetics");
+const audio_btn = document.querySelector(".audio_btn img");
+
+// const ponetics = document.querySelector(".searchedArea-header span");
+let audio_obj = new Object();
 
 const searchedArea_contents = document.querySelector(".searchedArea-contents");
 
@@ -29,7 +33,40 @@ search_icon.addEventListener("click", () => {
 
 function parse(data) {
   searchedArea_title.innerText = data.word;
-  ponetics.innerText = data.phonetic;
+  // ponetics.innerText = data.phonetic;
+  ponetics.innerHTML = "";
+  audio_obj = new Object();
+  audio_btn.style.display = "none";
+
+  let currentAudio = null;
+
+  data.phonetics.forEach((element) => {
+    audio_obj[element.text] = new Audio(element.audio);
+    var ponetic = document.createElement("a");
+
+    ponetic.removeEventListener("click", (e) => {});
+    ponetic.href = "#";
+    ponetic.innerHTML = element.text;
+
+    ponetics.append(ponetic);
+    ponetic.addEventListener("click", (e) => {
+      if (element.audio != "") {
+        audio_btn.style.display = "initial";
+
+        if (currentAudio !== null) {
+          currentAudio.pause();
+        }
+
+        currentAudio = audio_obj[e.target.text];
+        audio_btn.addEventListener("click", () => {
+          currentAudio.play();
+        });
+      } else {
+        audio_btn.style.display = "none";
+      }
+    });
+  });
+
   searchedArea_contents.innerText = "";
   const meanings_size = data.meanings.length;
 
@@ -53,7 +90,6 @@ function parse(data) {
 
     const definition_list = document.createElement("ul");
     definition_list.classList.add("definition-list");
-    console.log(data.meanings);
     for (let j = 0; j < data.meanings[i].definitions.length; j++) {
       const definition_list_item = document.createElement("li");
       definition_list_item.classList.add("definition-list-item");

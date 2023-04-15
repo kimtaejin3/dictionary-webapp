@@ -238,11 +238,12 @@ body {
   font-weight: bold;
 }
 
-.searchedArea-header span {
+.searchedArea-header a {
   color: var(--purple);
   font-size: 2rem;
   margin-top: 10px;
-  display: block;
+
+  margin-right: 10px;
 }
 
 .meanings {
@@ -360,4 +361,20 @@ body {
 
 .contents {
   padding: 50px 0;
+}
+
+.ponetics a:hover {
+  opacity: 0.5;
+}
+
+.audio_btn img {
+  display: none;
+}
+
+.moonIcon {
+  fill: var(--purple);
+}
+
+.moon_night_Icon {
+  display: none;
 }
