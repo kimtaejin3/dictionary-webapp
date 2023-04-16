@@ -129,6 +129,7 @@ li {
 }
 
 .select ul {
+  color: black;
   display: none;
   position: absolute;
   margin-top: 10px;

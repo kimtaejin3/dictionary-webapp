@@ -39,12 +39,10 @@ function parse(data) {
   audio_btn.style.display = "none";
 
   let currentAudio = null;
-
   data.phonetics.forEach((element) => {
     audio_obj[element.text] = new Audio(element.audio);
-    var ponetic = document.createElement("a");
+    let ponetic = document.createElement("a");
 
-    ponetic.removeEventListener("click", (e) => {});
     ponetic.href = "#";
     ponetic.innerHTML = element.text;
 
@@ -52,14 +50,12 @@ function parse(data) {
     ponetic.addEventListener("click", (e) => {
       if (element.audio != "") {
         audio_btn.style.display = "initial";
-
-        if (currentAudio !== null) {
-          currentAudio.pause();
-        }
-
         currentAudio = audio_obj[e.target.text];
+
         audio_btn.addEventListener("click", () => {
-          currentAudio.play();
+          if (currentAudio !== null) {
+            currentAudio.play();
+          }
         });
       } else {
         audio_btn.style.display = "none";
