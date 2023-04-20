@@ -1,3 +1,7 @@
+// document.cookie = "safeCookie1=foo; SameSite=Lax";
+// document.cookie = "safeCookie2=foo";
+// document.cookie = "crossCookie=bar; SameSite=None; Secure";
+
 let showData;
 const search_icon = document.querySelector(".search-icon");
 const search_text = document.querySelector(".search-text");
@@ -11,61 +15,64 @@ let audio_obj = new Object();
 
 const searchedArea_contents = document.querySelector(".searchedArea-contents");
 
-search_text.addEventListener("keypress", (e) => {
-  if (e.key == "Enter") {
-    get_response(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${search_text.value}`
-    ).then((data) => {
-      showData = data[0];
-      parse(showData);
-    });
+function take_response(e, isKeyPressed) {
+  if (isKeyPressed && e.key !== "Enter") {
+    return;
   }
-});
-
-search_icon.addEventListener("click", () => {
   get_response(
     `https://api.dictionaryapi.dev/api/v2/entries/en/${search_text.value}`
   ).then((data) => {
     showData = data[0];
     parse(showData);
   });
+}
+search_text.addEventListener("keypress", (e) => {
+  take_response(e, true);
 });
 
-function parse(data) {
-  searchedArea_title.innerText = data.word;
-  // ponetics.innerText = data.phonetic;
-  ponetics.innerHTML = "";
-  audio_obj = new Object();
-  audio_btn.style.display = "none";
+search_icon.addEventListener("click", (e) => {
+  take_response(e, false);
+});
 
-  let currentAudio = null;
+function displayPhonetics(data) {
   data.phonetics.forEach((element) => {
-    audio_obj[element.text] = new Audio(element.audio);
+    if (element.audio === "") return;
+    let audio_obj = new Audio(element.audio);
     let ponetic = document.createElement("a");
 
     ponetic.href = "#";
     ponetic.innerHTML = element.text;
 
     ponetics.append(ponetic);
-    ponetic.addEventListener("click", (e) => {
-      if (element.audio != "") {
-        audio_btn.style.display = "initial";
-        currentAudio = audio_obj[e.target.text];
+    audio_objs.push({
+      audio_obj: audio_obj,
+    });
 
-        audio_btn.addEventListener("click", () => {
-          if (currentAudio !== null) {
-            currentAudio.play();
-          }
-        });
-      } else {
-        audio_btn.style.display = "none";
+    console.log(audio_obj);
+
+    ponetic.addEventListener("click", () => {
+      if (element.audio != "") {
+        let currentAudio = audio_objs.find(
+          (audio) => audio.audio_obj.src == element.audio
+        );
+
+        currentAudio.audio_obj.play();
       }
     });
   });
+}
+
+function parse(data) {
+  searchedArea_title.innerText = data.word;
+  ponetics.innerHTML = "";
+  audio_objs = [];
+
+  // here
+  displayPhonetics(data);
 
   searchedArea_contents.innerText = "";
   const meanings_size = data.meanings.length;
-
+  console.log(meanings_size);
   for (let i = 0; i < meanings_size; i++) {
     const meanings = document.createElement("div");
     meanings.classList.add("meanings");
@@ -161,5 +168,3 @@ function parse(data) {
     searchedArea_contents.append(meanings);
   }
 }
-
-console.log("hello", showData);

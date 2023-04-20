@@ -20,6 +20,7 @@ confirm = function () {
     selct_ul.style.display = "none";
   }
 };
+
 arrow.addEventListener("click", () => {
   if (selct_ul.classList.value === "on") {
     selct_ul.classList.remove("on");
